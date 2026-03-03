@@ -1,0 +1,115 @@
+:root {
+  --ui-bg: #ffffff;
+  --ui-border: #d8e2f2;
+  --ui-border-focus: #5b86e5;
+  --ui-text: #1f2a44;
+  --ui-muted: #5f6f8f;
+  --ui-primary: #2f63cb;
+  --ui-primary-hover: #2554b0;
+  --ui-danger: #c62828;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ui-text);
+  background: #f6f9ff;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+  background: var(--ui-bg);
+  color: var(--ui-text);
+  font-size: 14px;
+  line-height: 1.35;
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #8a96af;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--ui-border-focus);
+  box-shadow: 0 0 0 3px rgba(91, 134, 229, 0.16);
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--ui-primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 100ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+button:hover:not(:disabled) {
+  background: var(--ui-primary-hover);
+  box-shadow: 0 8px 20px rgba(47, 99, 203, 0.18);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+button[style*="color: #c00"],
+button[style*="color:#c00"] {
+  color: var(--ui-danger) !important;
+}
+
+table {
+  background: #f3f8ff;
+  border: 2px solid #b9cbe7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th,
+td {
+  border: 1px solid #c6d6ee;
+}
+
+.admin-page {
+  background: radial-gradient(circle at 20% 0%, #182743 0%, #111a31 35%, #0f172a 100%);
+  min-height: calc(100vh - 56px);
+}
+
+.admin-content {
+  background: #edf4ff;
+  border: 1px solid #dce5f5;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 12px 28px rgba(16, 30, 57, 0.14);
+}
+
+.admin-content h2 {
+  margin-top: 0;
+  color: #152543;
+  letter-spacing: 0.2px;
+}
+
+.admin-content h3 {
+  color: #21365d;
+}
+
+.admin-content table {
+  box-shadow: 0 8px 18px rgba(32, 64, 128, 0.08);
+}

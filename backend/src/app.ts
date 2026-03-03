@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import dynamicRoutes from "./routes/dynamicRoutes";
 import authRoutes from "./routes/authRoutes";
 import authMiddleware from "./middleware/authMiddleware";
+import "./models";
 
 dotenv.config();
 

@@ -6,6 +6,7 @@ export interface IUser extends Document {
   password: string;
   phone?: string;
   role: "user" | "admin";
+  domainPermissions: string[];
   isActive: boolean;
   resetToken?: string;
   resetTokenExpiry?: Date;
@@ -22,6 +23,7 @@ const UserSchema: Schema<IUser> = new Schema(
     phone: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
     role: { type: String, enum: ["user", "admin"], default: "user" },
+    domainPermissions: { type: [String], default: [] },
     isActive: { type: Boolean, default: true },
     resetToken: { type: String },
     resetTokenExpiry: { type: Date },

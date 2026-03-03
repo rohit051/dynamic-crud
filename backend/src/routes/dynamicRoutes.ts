@@ -5,14 +5,22 @@ import requireRole from "../middleware/requireRole";
 
 const router = Router();
 
+const toEntity = (value: string) => String(value || "").toLowerCase();
+const isUserEntity = (entity: string) => toEntity(entity) === "user";
+const isTaxonomyEntity = (entity: string) => ["category", "subcategory", "domain"].includes(toEntity(entity));
+
 // only admin can create new dynamic entities
 router.post("/generate", requireRole("admin"), createEntity);
 router.route("/:entity")
-	.post(handleCRUD)
+	.post((req, res, next) => {
+		if (isUserEntity(req.params.entity) || isTaxonomyEntity(req.params.entity)) {
+			return requireRole("admin")(req, res, next);
+		}
+		next();
+	}, handleCRUD)
 	.get((req, res, next) => {
 		const entity = req.params.entity;
-		// only admin can list users
-		if (entity === "User" || entity === "user") {
+		if (isUserEntity(entity)) {
 			return requireRole("admin")(req, res, next);
 		}
 		next();
@@ -22,12 +30,17 @@ router.route("/:entity")
 router.route("/:entity/:id")
 	.put((req, res, next) => {
 		const entity = req.params.entity;
-		if (entity === "User" || entity === "user") return requireRole("admin")(req, res, next);
+		if (isUserEntity(entity) || isTaxonomyEntity(entity)) return requireRole("admin")(req, res, next);
+		next();
+	}, handleCRUD)
+	.get((req, res, next) => {
+		const entity = req.params.entity;
+		if (isUserEntity(entity)) return requireRole("admin")(req, res, next);
 		next();
 	}, handleCRUD)
 	.delete((req, res, next) => {
 		const entity = req.params.entity;
-		if (entity === "User" || entity === "user") return requireRole("admin")(req, res, next);
+		if (isUserEntity(entity) || isTaxonomyEntity(entity)) return requireRole("admin")(req, res, next);
 		next();
 	}, handleCRUD);
 

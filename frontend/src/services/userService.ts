@@ -15,6 +15,11 @@ const getAll = async (page: number = 1, limit: number = 10) => {
   return res.data; // expected { docs, total, page, pages }
 };
 
+const getById = async (id: string) => {
+  const res = await axios.get(`${API_BASE}/User/${id}`, { headers: authHeader() });
+  return res.data;
+};
+
 const update = async (id: string, payload: any) => {
   const res = await axios.put(`${API_BASE}/User/${id}`, payload, { headers: authHeader() });
   return res.data;
@@ -25,4 +30,4 @@ const remove = async (id: string) => {
   return res.data;
 };
 
-export default { getAll, update, remove };
+export default { getAll, getById, update, remove };

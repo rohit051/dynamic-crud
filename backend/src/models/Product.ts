@@ -6,6 +6,9 @@ export interface IProduct extends Document {
   price: number;
   currency: string;
   stock: number;
+  categoryId: mongoose.Types.ObjectId;
+  subcategoryId?: mongoose.Types.ObjectId | null;
+  createdBy?: mongoose.Types.ObjectId;
   categories: string[];
   images: string[];
   sku?: string;
@@ -21,6 +24,9 @@ const ProductSchema: Schema<IProduct> = new Schema(
     price: { type: Number, required: true },
     currency: { type: String, required: true, default: "USD" },
     stock: { type: Number, default: 0 },
+    categoryId: { type: Schema.Types.ObjectId, ref: "Category", required: true, index: true },
+    subcategoryId: { type: Schema.Types.ObjectId, ref: "Subcategory", default: null, index: true },
+    createdBy: { type: Schema.Types.ObjectId, ref: "User" },
     categories: { type: [String], default: [] },
     images: { type: [String], default: [] },
     sku: { type: String, index: true },
